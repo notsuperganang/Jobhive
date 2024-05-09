@@ -31,7 +31,7 @@ class ListingFactory extends Factory
             'slug' => Str::slug($title) . '-' . rand(1111, 9999),
             'company' => $this->faker->company,
             'location' => $this->faker->country(),
-            'logo' => basename($this->faker->imageUrl(storage_path('app/public'))),
+            'logo' => basename($this->faker->image(storage_path('app/public'))),
             'is_highlighted' => (rand(1, 9) > 7),
             'is_active' => true,
             'content' => $content,

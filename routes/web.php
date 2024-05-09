@@ -4,7 +4,8 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers;
 
-Route::get('/', [Controllers\ListingController::class, 'index'])->name('listings.index');
+Route::get('/', [Controllers\ListingController::class, 'index'])
+    ->name('listings.index');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
