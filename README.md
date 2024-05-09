@@ -1,3 +1,5 @@
+![JobHive Logo](/storage/JobHive-Logo.png)
+
 ## JobHive - Job Search Platform
 
 JobHive is a job search platform that allows users to discover and explore various job listings available from different companies. With a clean and intuitive interface, users can easily search, filter, and apply for job listings that match their skills and interests.
