@@ -10,8 +10,14 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
+
 class ListingController extends Controller
 {
+
+    public function create(){
+        return view( 'listings.create');
+    }
+
     public function index(Request $request)
     {
         $listings = Listing::where('is_active', true)
@@ -63,5 +69,11 @@ class ListingController extends Controller
             ]);
         
         return redirect()->to($listing->apply_link);
+    }
+
+    
+    
+    public function store(Request $request){
+        //process the listing creattion form
     }
 }

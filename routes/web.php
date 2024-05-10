@@ -3,9 +3,21 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers;
+use App\Http\Controllers\Controller;
+use  App\Http\Controllers\ListingController;
+
 
 Route::get('/', [Controllers\ListingController::class, 'index'])
     ->name('listings.index');
+
+Route::get('/new', [Controllers\ListingController::class, 'create'])
+    ->name('listings.create');
+
+    // Route::get('/listings/create', 'ListingController@create')->name('listings.create');
+
+
+    Route::post('/new', [Controllers\ListingController::class, 'store'])
+    ->name( 'listings.store');
 
     Route::get('/dashboard', function () {
         return view('dashboard');
@@ -13,7 +25,7 @@ Route::get('/', [Controllers\ListingController::class, 'index'])
     
     Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::patch('/probfile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
