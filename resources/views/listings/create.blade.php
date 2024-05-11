@@ -2,7 +2,7 @@
     <section class="text-gray-600 body-font overflow-hidden">
     <div class="w-full md:w-1/2 py-24 mx-auto ">
         <div class="mb-4">
-            <h2 class="text-2xl font-medium text-gray-900 title-font"> 
+            <h2 class="text-2xl font-medium text-gray-900 title-font">
                 create a new listening ($99)
             </h2>
         </div>
@@ -24,7 +24,7 @@
         >
         @guest
         <div class="flex mb-4">
-            
+
         <div class="flex-1 mx-2">
     <label for="email" class="block text-lg font-medium text-gray-700">Email Address</label>
     <input
@@ -53,7 +53,7 @@
         <div class="flex mb-4">
         <div class="flex-1 mx-2">
     <label for="password" class="block text-lg font-medium text-gray-700">Password</label>
-    <input 
+    <input
         class="block mt-1 w-full rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
         id="password"
         type="password"
@@ -64,7 +64,7 @@
 
 <div class="flex-1 mx-2">
     <label for="password_confirmation" class="block text-lg font-medium text-gray-700">Confirm Password</label>
-    <input 
+    <input
         class="block mt-1 w-full rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
         id="password_confirmation"
         type="password"
@@ -73,12 +73,12 @@
     />
 </div>
 
-            
+
         </div>
         @endguest
         <div class="mb-4 mx-2">
     <label for="title" class="block text-lg font-medium text-gray-700">Job Title</label>
-    <input 
+    <input
         id="title"
         class="block mt-1 w-full rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
         type="text"
@@ -89,7 +89,7 @@
 
 <div class="mb-4 mx-2">
     <label for="company" class="block text-lg font-medium text-gray-700">Company Name</label>
-    <input 
+    <input
         id="company"
         class="block mt-1 w-full rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
         type="text"
@@ -100,7 +100,7 @@
 
 <div class="mb-4 mx-2">
     <label for="logo" class="block text-lg font-medium text-gray-700">Company Logo</label>
-    <input 
+    <input
         id="logo"
         class="block mt-1 w-full"
         type="file"
@@ -111,7 +111,7 @@
 
 <div class="mb-4 mx-2">
     <label for="location" class="block text-lg font-medium text-gray-700">Location (e.g Remote, United States)</label>
-    <input 
+    <input
         id="location"
         class="block mt-1 w-full"
         type="text"
@@ -122,7 +122,7 @@
 
 <div class="mb-4 mx-2">
     <label for="apply_link" class="block text-lg font-medium text-gray-700">Link to Apply</label>
-    <input 
+    <input
         id="apply_link"
         class="block mt-1 w-full"
         type="text"
@@ -133,7 +133,7 @@
 
 <div class="mb-4 mx-2">
     <label for="tags" class="block text-lg font-medium text-gray-700">Tags (separate by comma)</label>
-    <input 
+    <input
         id="tags"
         class="block mt-1 w-full"
         type="text"
@@ -144,7 +144,7 @@
 
 <div class="mb-4 mx-2">
     <label for="content" class="block text-lg font-medium text-gray-700">Listing Content (markdown is okay)</label>
-    <textarea 
+    <textarea
         id="content"
         rows="8"
         class="rounded-md shadow-sm border-gray-300 focus:border-indigo"
@@ -154,7 +154,7 @@
 
         <div class="mb-4 mx-2">
             <label for="is_highlighted" class="inline-flex items-center font-medium">
-            <input 
+            <input
             id="is_highlighted"
             class="rounded border-gray-300 text-indigo-600 shadow-sm"
             type="checkbox"
@@ -168,7 +168,7 @@
         </div>
         <div class="mb-2 mx-2"></div>
             @csrf
-            <input 
+            <input
             type="hidden"
             id="payment_method_id"
             name="payment_method_id"
@@ -184,8 +184,26 @@
         const stripe = Stripe("{{ env('STRIPE_KEY')     }}");
         const elements = stripe.elements();
         const cardElement = elements.create('card', {
-
+            classes: {
+                base: 'StripeElement rounded-md shadow-sm bg-white px-2 py-3 border border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 block mt-1 w-full'
+            }
         });
+
         cardElement.mount('#card-element');
+
+        document.getElementById('form_submit').addEventListener('click', async (e) => {
+            e.preventDefault();
+
+            const { paymentMethod, error } = await stripe.createPaymentMethod(
+                'card', cardElement, {}
+            );
+
+            if (error) {
+                alert(error.message);
+            } else {
+                document.getElementById('payment_method_id').value = paymentMethod.id;
+                document.getElementById('payment_form').submit();
+            }
+        })
     </script>
 </x-app-layout>
