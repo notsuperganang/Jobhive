@@ -60,7 +60,7 @@ class ListingController extends Controller
         $listing->clicks()
             ->create([
                 'user_agent' => $request->userAgent(),
-                'ip' => $request->ip()
+                'ip_address' => $request->ip()
             ]);
 
         return redirect()->to($listing->apply_link);
@@ -73,7 +73,7 @@ class ListingController extends Controller
 
     public function store(Request $request)
     {
-        //process the listing creattion form
+        // process the listing creation form
         $validationArray = [
             'title' => 'required',
             'company' => 'required',
@@ -94,6 +94,7 @@ class ListingController extends Controller
 
         $request->validate($validationArray);
 
+        // is a user signed in? if not, create one and authenticate
         $user = Auth::user();
 
         if (!$user) {
@@ -108,13 +109,17 @@ class ListingController extends Controller
             Auth::login($user);
         }
 
+        // process the payment and create the listing
         try {
-            $amount = 9900;
+            $amount = 9900; // $99.00 USD in cents
             if ($request->filled('is_highlighted')) {
                 $amount += 1900;
             }
 
-            $user->charge($amount, $request->payment_method_id);
+            $user->charge($amount, $request->payment_method_id, [
+                'return_url' => route('dashboard'),
+            ]);
+
 
             $md = new \ParsedownExtra();
 
@@ -131,7 +136,7 @@ class ListingController extends Controller
                     'is_active' => true
                 ]);
 
-            foreach(explode(',', $request->tags) as $requestTag) {
+            foreach (explode(',', $request->tags) as $requestTag) {
                 $tag = Tag::firstOrCreate([
                     'slug' => Str::slug(trim($requestTag))
                 ], [
@@ -142,10 +147,9 @@ class ListingController extends Controller
             }
 
             return redirect()->route('dashboard');
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             return redirect()->back()
                 ->withErrors(['error' => $e->getMessage()]);
         }
     }
 }
-
