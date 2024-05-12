@@ -3,7 +3,7 @@
         <div class="w-full md:w-1/2 py-24 mx-auto ">
             <div class="mb-4">
                 <h2 class="text-2xl font-medium text-gray-900 title-font">
-                    create a new listening ($99)
+                    Create a new listing ($99)
                 </h2>
             </div>
             @if($errors->any())
@@ -33,7 +33,8 @@
                                 name="email"
                                 :value="old('email')"
                                 required
-                                autofocus />
+                                autofocus
+                            />
                         </div>
                         <div class="flex-1 mx-2">
                             <label for="name" class="block text-lg font-medium text-gray-700">Full Name</label>
@@ -43,7 +44,8 @@
                                 type="text"
                                 name="name"
                                 :value="old('name')"
-                                required />
+                                required
+                            />
                         </div>
                     </div>
                     <div class="flex mb-4">
@@ -54,7 +56,8 @@
                                 id="password"
                                 type="password"
                                 name="password"
-                                required />
+                                required
+                            />
                         </div>
                         <div class="flex-1 mx-2">
                             <label for="password_confirmation" class="block text-lg font-medium text-gray-700">Confirm Password</label>
@@ -63,7 +66,8 @@
                                 id="password_confirmation"
                                 type="password"
                                 name="password_confirmation"
-                                required />
+                                required
+                            />
                         </div>
                     </div>
                 @endguest
@@ -141,8 +145,8 @@
                             id="is_highlighted"
                             name="is_highlighted"
                             value="yes"
-                            class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50" />
-                        <span class="ml-2">highlight this post (extra $19)</span>
+                            class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50">
+                        <span class="ml-2">Highlight this post (extra $19)</span>
                     </label>
                 </div>
                 <div class="mb-6 mx-2">
