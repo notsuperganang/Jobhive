@@ -5,7 +5,7 @@
             <div class="flex-justify-center">
                 @foreach ($tags as $tag)
                     <a href="{{ route('listings.index', ['tag' => $tag->slug]) }}"
-                        class="inline-block ml-2 tracking-wide text-xs font-medium title-font py-0.5 px-1.5 border border-indigo-500 uppercase {{ $tag->slug === request()->get('tag') ? 'bg-indigo-500 text-white' : 'bg-white text-indigo-500' }}">{{ $tag->name }}</a>
+                        class="inline-block ml-2 tracking-wide text-xs font-medium title-font py-0.5 px-1.5 border border-red-500 uppercase {{ $tag->slug === request()->get('tag') ? 'bg-red-500 text-white' : 'bg-white text-red-500' }}">{{ $tag->name }}</a>
                 @endforeach
             </div>
         </div>
@@ -15,7 +15,7 @@
         <div class="-my-6">
             @foreach ($listings as $listing)
                 <a href="{{ route('listings.show', $listing->slug) }}"
-                    class="py-6 px-4 flex flex-wrap md:flex-nowrap border-b border-gray-100 {{ $listing->is_highlighted ? 'bg-yellow-100 hover:bg-yellow-200' : 'bg-white hover:bg-gray-100' }}">
+                    class="py-6 px-4 flex flex-wrap md:flex-nowrap border-b border-gray-100 {{ $listing->is_highlighted ? 'bg-red-50 hover:bg-red-100' : 'bg-white hover:bg-gray-100' }}">
                     <div class="md:w-16 md:mb-0 mb-6 mr-4 flex-shrink-0 flex flex-col">
                         <img src="/storage/{{ $listing->logo }}" alt="{{ $listing->company }} logo"
                             class="w-16 h-16 rounded-full object-cover">
@@ -29,7 +29,7 @@
                     <div class="md:flex-grow mr-8 flex items-center justify-start">
                         @foreach ($listing->tags as $tag)
                             <span
-                                class="inline-block ml-2 tracking-wide text-xs font-medium title-font py-0.5 px-1.5 border border-indigo-500 uppercase {{ $tag->slug === request()->get('tag') ? 'bg-indigo-500 text-white' : 'bg-white text-indigo-500' }}">
+                                class="inline-block ml-2 tracking-wide text-xs font-medium title-font py-0.5 px-1.5 border border-red-500 uppercase {{ $tag->slug === request()->get('tag') ? 'bg-red-500 text-white' : 'bg-white text-red-500' }}">
                                 {{ $tag->name }}
                             </span>
                         @endforeach
