@@ -8,7 +8,7 @@
                 <div class="md:flex-grow mr-8 mt-2 flex items-center justify-start">
                     @foreach ($listing->tags as $tag)
                         <span
-                            class="inline-block mr-2 tracking-wide text-indigo-500 text-xs font-medium title-font py-0.5 px-1.5 border border-indigo-500 uppercase">{{ $tag->name }}</span>
+                            class="inline-block mr-2 tracking-wide text-red-500 text-xs font-medium title-font py-0.5 px-1.5 border border-red-500 uppercase">{{ $tag->name }}</span>
                     @endforeach
                 </div>
             </div>
@@ -25,7 +25,7 @@
                             <strong>Company: </strong>{{ $listing->company }}
                         </p>
                         <a href="{{ route('listings.apply', $listing->slug) }}"
-                            class="block text-center my-4 tracking-wide bg-white text-indigo-500 text-sm font-medium title-font py-2 border border-indigo-500 hover:bg-indigo-500 hover:text-white uppercase">Apply
+                            class="block text-center my-4 tracking-wide bg-white text-red-500 text-sm font-medium title-font py-2 border border-red-500 hover:bg-red-500 hover:text-white uppercase">Apply
                             Now</a>
                     </div>
                 </div>
