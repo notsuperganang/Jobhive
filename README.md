@@ -23,7 +23,7 @@ To run JobHive on your local environment, follow these installation steps:
     - PHP >= 7.4
     - Composer
     - MySQL or other Databases
-    - Node.js & npm (optional, depending on project requirements)
+    - Node.js & npm
 
 2. **Clone the Repository:**
 
