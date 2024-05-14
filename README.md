@@ -1,4 +1,6 @@
-![JobHive Logo](/storage/app/public/JobHive-Logo.png)
+<p align="center">
+  <img src="/image/JobHive-Logo-Inner-White.png" alt="JobHive Logo" width="400"/>
+</p>
 
 ## JobHive - Job Search Platform
 
