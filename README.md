@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="/image/JobHive-Logo-Inner-White.png" alt="JobHive Logo" width="400"/>
+  <img src="/image/JobHive-Logo-Inner-White.png" alt="JobHive Logo" width="700"/>
 </p>
 
 ## JobHive - Job Search Platform
