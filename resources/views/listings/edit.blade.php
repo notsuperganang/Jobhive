@@ -91,14 +91,15 @@
                         comma)</label>
                     <input id="tags"
                         class="block mt-1 w-full rounded-md shadow-sm focus:border-red-500 focus:ring focus:ring-red-200 focus:ring-opacity-50"
-                        type="text" name="tags" value="{{ old('tags', $listing->tags) }}" />
+                        type="text" name="tags"
+                        value="{{ old('tags', $listing->tags->pluck('name')->implode(',')) }}" />
                 </div>
                 <div class="mb-4 mx-2">
                     <label for="content" class="block text-lg font-medium text-gray-700">Listing Content (markdown is
                         okay)</label>
                     <textarea id="content" rows="8"
                         class="rounded-md shadow-sm border-gray-300 focus:border-red-500 focus:ring focus:ring-red-200 focus:ring-opacity-50 block mt-1 w-full"
-                        name="content">{{ old('content', $listing->content) }}</textarea>
+                        name="content">{{ old('content', strip_tags($listing->content)) }}</textarea>
                 </div>
                 <div class="mb-2 mx-2">
                     <button type="submit"
