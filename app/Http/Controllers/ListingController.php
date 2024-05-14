@@ -152,4 +152,65 @@ class ListingController extends Controller
                 ->withErrors(['error' => $e->getMessage()]);
         }
     }
+
+    public function edit($id)
+    {
+        $listing = Listing::findOrFail($id);
+        $tags = Tag::orderBy('name')->get();
+        return view('listings.edit', compact('listing', 'tags'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $listing = Listing::findOrFail($id);
+
+        $validationArray = [
+            'title' => 'required',
+            'company' => 'required',
+            'logo' => 'file|max:2048',
+            'location' => 'required',
+            'apply_link' => 'required|url',
+            'content' => 'required'
+        ];
+
+        $request->validate($validationArray);
+
+        // Update logo if a new one is uploaded
+        if ($request->hasFile('logo')) {
+            $logo = basename($request->file('logo')->store('public'));
+            $listing->logo = $logo;
+        }
+
+        $listing->title = $request->title;
+        $listing->company = $request->company;
+        $listing->location = $request->location;
+        $listing->apply_link = $request->apply_link;
+        $listing->content = (new \ParsedownExtra())->text($request->input('content'));
+        $listing->is_highlighted = $request->filled('is_highlighted');
+        $listing->save();
+
+        // Sync tags
+        $tags = collect(explode(',', $request->tags))->map(function ($tag) {
+            return Tag::firstOrCreate([
+                'slug' => Str::slug(trim($tag))
+            ], [
+                'name' => ucwords(trim($tag))
+            ])->id;
+        });
+        $listing->tags()->sync($tags);
+
+        return redirect()->route('listings.index')->with('success', 'Listing updated successfully');
+    }
+
+    public function destroy($id)
+    {
+        try {
+            $listing = Listing::findOrFail($id);
+            $listing->delete();
+
+            return redirect()->route('listings.index')->with('success', 'Listing deleted successfully');
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return redirect()->route('listings.index')->with('error', 'Listing not found');
+        }
+    }
 }
