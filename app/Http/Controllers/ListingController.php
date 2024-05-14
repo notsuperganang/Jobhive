@@ -177,8 +177,8 @@ class ListingController extends Controller
 
         // Update logo if a new one is uploaded
         if ($request->hasFile('logo')) {
-            $logo = basename($request->file('logo')->store('public'));
-            $listing->logo = $logo;
+            $logo = $request->file('logo')->store('public');
+            $listing->logo = basename($logo);
         }
 
         $listing->title = $request->title;
@@ -186,7 +186,6 @@ class ListingController extends Controller
         $listing->location = $request->location;
         $listing->apply_link = $request->apply_link;
         $listing->content = (new \ParsedownExtra())->text($request->input('content'));
-        $listing->is_highlighted = $request->filled('is_highlighted');
         $listing->save();
 
         // Sync tags
@@ -202,15 +201,16 @@ class ListingController extends Controller
         return redirect()->route('listings.index')->with('success', 'Listing updated successfully');
     }
 
+
     public function destroy($id)
     {
         try {
             $listing = Listing::findOrFail($id);
             $listing->delete();
 
-            return redirect()->route('listings.index')->with('success', 'Listing deleted successfully');
+            return redirect()->route('dashboard')->with('success', 'Listing deleted successfully');
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
-            return redirect()->route('listings.index')->with('error', 'Listing not found');
+            return redirect()->route('dashboard')->with('error', 'Listing not found');
         }
     }
 }
