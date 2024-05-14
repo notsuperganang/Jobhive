@@ -198,7 +198,7 @@ class ListingController extends Controller
         });
         $listing->tags()->sync($tags);
 
-        return redirect()->route('listings.index')->with('success', 'Listing updated successfully');
+        return redirect()->route('dashboard')->with('success', 'Listing updated successfully');
     }
 
 
