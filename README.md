@@ -1,4 +1,4 @@
-![JobHive Logo](/storage/app/public/JobHive-Logo.png)
+![JobHive Logo](/image/JobHive-Logo.png)
 
 ## JobHive - Job Search Platform
 
